@@ -116,8 +116,8 @@ const TaskTable = () => {
         Cell: ({ cell }) => {
           const fullId = cell.getValue<string>();
           return (
-            <Tooltip arrow title={fullId}>
-              <div>{fullId.substring(0, 8)}...</div>
+            <Tooltip arrow title={fullId || "N/A"}>
+              <div>{fullId ? `${fullId.substring(0, 8)}...` : "N/A"}</div>
             </Tooltip>
           );
         },
