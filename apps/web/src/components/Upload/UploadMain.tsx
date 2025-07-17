@@ -22,7 +22,7 @@ import { UploadForm } from "../../models/upload.model";
 import { getEnvConfig, WhenEnabled } from "../../config/env.config";
 import { toast } from "react-hot-toast";
 
-const DOCS_URL = import.meta.env.VITE_DOCS_URL || "https://docs.chunkr.ai";
+const DOCS_URL = import.meta.env.VITE_DOCS_URL || "https://docs.tahoo.ai";
 
 // threshold under which we encode on main thread (10 MB)
 const SMALL_FILE_SIZE = 10 * 1024 * 1024;
@@ -214,15 +214,15 @@ export default function UploadMain({
                   setConfig({
                     ...config,
                     pipeline: (features.pipeline
-                      ? value === Pipeline.Chunkr
-                        ? Pipeline.Chunkr
+                      ? value === Pipeline.Tahoo
+                        ? Pipeline.Tahoo
                         : Pipeline.Azure
                       : undefined) as WhenEnabled<"pipeline", Pipeline>,
                   })
                 }
                 options={[
                   { label: "Azure", value: Pipeline.Azure },
-                  { label: "Chunkr", value: Pipeline.Chunkr },
+                  { label: "Tahoo", value: Pipeline.Tahoo },
                 ]}
               />
             )}

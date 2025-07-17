@@ -81,7 +81,7 @@ export interface SegmentProcessingConfig {
 
 /**
  * Controls the post-processing of each segment type.
- * Allows you to generate HTML and Markdown from chunkr models for each segment type.
+ * Allows you to generate HTML and Markdown from tahoo models for each segment type.
  * By default, the HTML and Markdown are generated manually using the segmentation information except for `Table` and `Formula`.
  * You can optionally configure custom LLM prompts and models to generate an additional `llm` field
  * with LLM-processed content for each segment type.
@@ -150,7 +150,7 @@ export interface UploadFormData {
 
 export enum Pipeline {
   Azure = "Azure",
-  Chunkr = "Chunkr",
+  Tahoo = "Tahoo",
 }
 
 const DEFAULT_SEGMENT_CONFIG: SegmentProcessingConfig = {

@@ -1,11 +1,11 @@
 export const curlExample = `# Start instantly with our default configurations
-curl -X POST https://api.chunkr.ai/api/v1/task \\
+curl -X POST https://api.tahoo.ai/api/v1/task \\
     -H "Content-Type: multipart/form-data" \\
     -H "Authorization: YOUR_API_KEY" \\
     -F "file=@/path/to/your/file"
 
 # Or customize the task for your use case
-curl -X POST https://api.chunkr.ai/api/v1/task \\
+curl -X POST https://api.tahoo.ai/api/v1/task \\
     -H "Content-Type: multipart/form-data" \\
     -H "Authorization: YOUR_API_KEY" \\
     -F "file=@/path/to/your/file" \\
@@ -46,12 +46,12 @@ curl -X POST https://api.chunkr.ai/api/v1/task \\
 //   }
 // }`;
 
-export const pythonExample = `from chunkr_ai import Chunkr
+export const pythonExample = `from tahoo_ai import Tahoo
 
-chunkr = Chunkr(api_key="your_api_key")
+tahoo = Tahoo(api_key="your_api_key")
 
 # Start instantly with our default configurations
-task = chunkr.upload("/path/to/your/file")
+task = tahoo.upload("/path/to/your/file")
 
 # Export HTML of document
 task.html(output_file="output.html")
@@ -60,7 +60,7 @@ task.html(output_file="output.html")
 task.markdown(output_file="output.md")
 
 # Or customize the task for your use case (needs imports - view docs)
-task = chunkr.upload("path/to/file", Configuration(
+task = tahoo.upload("path/to/file", Configuration(
     chunk_processing=ChunkProcessing(
         target_length=1024
     ),

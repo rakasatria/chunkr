@@ -66,7 +66,7 @@ export default function Header({ auth }: HeaderProps) {
             trim="start"
             mt="1px"
           >
-            chunkr
+            tahoo
           </Text>
         </div>
       </Link>
@@ -74,7 +74,7 @@ export default function Header({ auth }: HeaderProps) {
       <Flex className="nav" direction="row" align="center">
         <Flex direction="row" gap="20px" align="center" justify="end">
           <a
-            href="https://github.com/lumina-ai-inc/chunkr"
+            href="https://github.com/rakasatria/chunkr"
             target="_blank"
             style={{ textDecoration: "none" }}
           >
@@ -223,7 +223,7 @@ export default function Header({ auth }: HeaderProps) {
             <DropdownMenu.Content className="dropdown-content" sideOffset={5}>
               <DropdownMenu.Item className="dropdown-item">
                 <a
-                  href="https://github.com/lumina-ai-inc/chunkr"
+                  href="https://github.com/rakasatria/chunkr"
                   target="_blank"
                   className="dropdown-link"
                 >
@@ -248,7 +248,7 @@ export default function Header({ auth }: HeaderProps) {
 
               <DropdownMenu.Item className="dropdown-item">
                 <a
-                  href="https://docs.chunkr.ai"
+                  href="https://docs.tahoo.ai"
                   target="_blank"
                   className="dropdown-link"
                 >
