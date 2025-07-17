@@ -225,7 +225,7 @@ export default function Viewer({
           const originalFilename = output?.file_name || "document.pdf";
           const extension = originalFilename.split(".").pop() || "pdf";
           const baseFilename = originalFilename.replace(`.${extension}`, "");
-          link.download = `${baseFilename}_chunkr.${extension}`;
+          link.download = `${baseFilename}_tahoo.${extension}`;
 
           document.body.appendChild(link);
           link.click();
@@ -257,7 +257,7 @@ export default function Viewer({
 
       const originalFilename = output?.file_name || "document.pdf";
       const baseFilename = originalFilename.replace(/\.[^/.]+$/, "");
-      a.download = `${baseFilename}_chunkr_json.json`;
+      a.download = `${baseFilename}_tahoo_json.json`;
 
       a.click();
       URL.revokeObjectURL(url);
@@ -291,7 +291,7 @@ export default function Viewer({
 
       const originalFilename = output.file_name || "document.pdf";
       const baseFilename = originalFilename.replace(/\.[^/.]+$/, "");
-      a.download = `${baseFilename}_chunkr_html.html`;
+      a.download = `${baseFilename}_tahoo_html.html`;
 
       a.click();
       URL.revokeObjectURL(url);
@@ -325,7 +325,7 @@ export default function Viewer({
 
       const originalFilename = output.file_name || "document.pdf";
       const baseFilename = originalFilename.replace(/\.[^/.]+$/, "");
-      a.download = `${baseFilename}_chunkr_markdown.md`;
+      a.download = `${baseFilename}_tahoo_markdown.md`;
 
       a.click();
       URL.revokeObjectURL(url);

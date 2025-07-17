@@ -1,10 +1,10 @@
 <br />
 <div align="center">
-  <a href="https://github.com/lumina-ai-inc/chunkr">
+  <a href="https://github.com/rakasatria/chunkr">
     <img src="images/logo.svg" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Chunkr | Open Source Document Intelligence API</h3>
+<h3 align="center">Tahoo | Document Intelligence API</h3>
 
   <p align="center">
     Production-ready API service for document layout analysis, OCR, and semantic chunking.<br />Convert PDFs, PPTs, Word docs & images into RAG/LLM-ready chunks.
@@ -12,9 +12,9 @@
     <b>Layout Analysis</b> | <b>OCR + Bounding Boxes</b> | <b>Structured HTML and markdown</b> | <b>VLM Processing controls</b>
     <br />
     <br />
-    <a href="https://www.chunkr.ai"><img src="https://img.shields.io/badge/Try_it_out-chunkr.ai-blue?style=flat&logo=rocket&height=20" alt="Try it out" height="20"></a>
+    <a href="https://www.tahoo.ai"><img src="https://img.shields.io/badge/Try_it_out-tahoo.ai-blue?style=flat&logo=rocket&height=20" alt="Try it out" height="20"></a>
     &nbsp;&nbsp;&nbsp;
-    <a href="https://github.com/lumina-ai-inc/chunkr/issues/new"><img src="https://img.shields.io/badge/Report_Bug-GitHub_Issues-red?style=flat&logo=github&height=20" alt="Report Bug" height="20"></a>
+    <a href="https://github.com/rakasatria/chunkr/issues/new"><img src="https://img.shields.io/badge/Report_Bug-GitHub_Issues-red?style=flat&logo=github&height=20" alt="Report Bug" height="20"></a>
     &nbsp;&nbsp;&nbsp;
     <a href="#connect-with-us"><img src="https://img.shields.io/badge/Contact-Get_in_Touch-green?style=flat&logo=mail&height=20" alt="Contact" height="20"></a>
     &nbsp;&nbsp;&nbsp;
@@ -26,8 +26,8 @@
 
 
 <div align="center">
-  <a href="https://www.chunkr.ai" width="1200" height="630">
-    <img src="https://chunkr.ai/og-image.png" style="bor">
+  <a href="https://www.tahoo.ai" width="1200" height="630">
+    <img src="https://tahoo.ai/og-image.png" style="bor">
   </a>
 </div>
 
@@ -48,22 +48,22 @@
 
 ## (Super) Quick Start
 
-1. Go to [chunkr.ai](https://www.chunkr.ai) 
+1. Go to [tahoo.ai](https://www.tahoo.ai) 
 2. Make an account and copy your API key
 3. Install our Python SDK:
 ```bash
-pip install chunkr-ai
+pip install tahoo-ai
 ```
 4. Use the SDK to process your documents:
 ```python
-from chunkr_ai import Chunkr
+from tahoo_ai import Tahoo
 
-# Initialize with your API key from chunkr.ai
-chunkr = Chunkr(api_key="your_api_key")
+# Initialize with your API key from tahoo.ai
+tahoo = Tahoo(api_key="your_api_key")
 
 # Upload a document (URL or local file path)
-url = "https://chunkr-web.s3.us-east-1.amazonaws.com/landing_page/input/science.pdf"
-task = chunkr.upload(url)
+url = "https://tahoo-web.s3.us-east-1.amazonaws.com/landing_page/input/science.pdf"
+task = tahoo.upload(url)
 
 # Export results in various formats
 html = task.html(output_file="output.html")
@@ -72,12 +72,12 @@ content = task.content(output_file="output.txt")
 task.json(output_file="output.json")
 
 # Clean up
-chunkr.close()
+tahoo.close()
 ```
 
 ## Documentation
 
-Visit our [docs](https://docs.chunkr.ai) for more information and examples.
+Visit our [docs](https://docs.tahoo.ai) for more information and examples.
 
 ## Self-Hosted Deployment Options
 
@@ -89,7 +89,7 @@ Visit our [docs](https://docs.chunkr.ai) for more information and examples.
 
 2. Clone the repo:
 ```bash
-git clone https://github.com/lumina-ai-inc/chunkr
+git clone https://github.com/rakasatria/chunkr
 cd chunkr
 ```
 
