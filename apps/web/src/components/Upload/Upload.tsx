@@ -1,7 +1,6 @@
 import { Flex, Text } from "@radix-ui/themes";
 import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
-import { useAuth } from "react-oidc-context";
 import "./Upload.css";
 import BetterButton from "../BetterButton/BetterButton";
 
@@ -49,8 +48,6 @@ export default function Upload({
     multiple: true,
     noClick: true,
   });
-
-  const auth = useAuth();
 
   return (
     <>
@@ -220,17 +217,11 @@ export default function Upload({
         height="200px"
         align="center"
         justify="center"
-        className={`upload-container ${!isAuthenticated ? "inactive" : ""} ${
+        className={`upload-container ${
           files.length > 0 ? "has-files" : ""
         } ${isUploading ? "uploading" : ""}`}
         style={{ cursor: isUploading ? "default" : "pointer" }}
-        onClick={
-          isUploading
-            ? undefined
-            : isAuthenticated
-            ? open
-            : () => auth.signinRedirect()
-        }
+        onClick={isUploading ? undefined : open}
       >
         <input {...(isUploading ? {} : getInputProps())} />
         <Flex

@@ -3,8 +3,6 @@ import "./PricingCard.css";
 import { useState } from "react";
 import { Stripe } from "@stripe/stripe-js";
 import CheckoutOverlay from "../CheckoutOverlay/CheckoutOverlay";
-import { useAuth } from "react-oidc-context";
-import { getBillingPortalSession } from "../../services/stripeService";
 
 interface PricingCardProps {
   title: string;
@@ -48,14 +46,11 @@ const PricingCard = ({
   callToActionUrl,
 }: PricingCardProps) => {
   const [showCheckout, setShowCheckout] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const auth = useAuth();
+  const [error] = useState<string | null>(null);
 
   const isCurrentPlan = currentTier === tier;
 
   const getButtonText = () => {
-    if (isLoading) return "Loading...";
     if (isCallToAction) return buttonText;
     if (!isAuthenticated) {
       return tier === "Free" ? "Get Started" : "Subscribe";
@@ -79,38 +74,8 @@ const PricingCard = ({
       return;
     }
 
-    if (!isAuthenticated) {
-      auth.signinRedirect();
-      return;
-    }
-
-    if (tier !== "Free") {
-      try {
-        setIsLoading(true);
-        setError(null);
-
-        // If user is on free plan, create checkout session instead of billing portal
-        if (currentTier === "Free") {
-          if (onCheckout) {
-            await onCheckout(tier);
-            setShowCheckout(true);
-          }
-        } else {
-          // Otherwise use billing portal for plan management
-          const { url } = await getBillingPortalSession(
-            auth.user?.access_token || "",
-            customerId || ""
-          );
-          window.location.href = url;
-        }
-      } catch (err) {
-        setError("Failed to process request. Please try again.");
-        console.error("Billing error:", err);
-      } finally {
-        setIsLoading(false);
-      }
-      return;
-    }
+    // For simplified version, just show demo message
+    alert("This is a demo version. Billing functionality has been simplified.");
   };
 
   return (

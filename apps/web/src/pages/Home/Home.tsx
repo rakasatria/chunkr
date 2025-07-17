@@ -1,8 +1,7 @@
 // React Imports
 import { useEffect, useRef, useState } from "react";
 
-// OIDC Imports
-import { useAuth } from "react-oidc-context";
+// Router Imports
 import { useNavigate } from "react-router-dom";
 
 // Radix Imports
@@ -40,14 +39,10 @@ import checklistAnimation from "../../assets/animations/checklist.json";
 import apiPriceAnimation from "../../assets/animations/apiPrice.json";
 import onPremAnimation from "../../assets/animations/onPrem.json";
 // Service Imports
-import { createCheckoutSession } from "../../services/stripeService";
-import { loadStripe } from "@stripe/stripe-js";
 import useMonthlyUsage from "../../hooks/useMonthlyUsage";
 import Viewer from "../../components/Viewer/Viewer";
 import { TaskResponse } from "../../models/taskResponse.model";
 import toast from "react-hot-toast";
-
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_API_KEY, {});
 
 // Add new type and constants
 type DocumentCategory = {
@@ -74,8 +69,6 @@ const BASE_URL =
   "https://chunkr-web.s3.us-east-1.amazonaws.com/landing_page_v2";
 
 const Home = () => {
-  const auth = useAuth();
-  const isAuthenticated = auth.isAuthenticated;
   const navigate = useNavigate();
 
   const terminalRef = useRef<HTMLDivElement>(null);
@@ -105,7 +98,7 @@ const Home = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [selectedScript, setSelectedScript] = useState("python");
 
-  const [checkoutClientSecret, setCheckoutClientSecret] = useState<
+  const [checkoutClientSecret] = useState<
     string | null
   >(null);
   const [selectedFormat, setSelectedFormat] = useState<"HTML" | "Markdown">(
@@ -113,7 +106,7 @@ const Home = () => {
   );
 
   const { data: usageData, isLoading: isUsageDataLoading } = useMonthlyUsage();
-  const currentTier = usageData?.[0]?.tier;
+  const currentTier = "Free"; // Default to free for simplified version
 
   const pricingRef = useRef<HTMLDivElement>(null);
 
@@ -321,21 +314,9 @@ const Home = () => {
     // node: "javascript",
   };
 
-  // Create a unified auth redirect handler
-  const handleAuthRedirect = (returnPath?: string) => {
-    const currentPath = window.location.pathname + window.location.hash;
-    auth.signinRedirect({
-      state: { returnTo: returnPath || currentPath },
-    });
-  };
-
-  // Update handleGetStarted
+  // Update handleGetStarted to navigate directly to dashboard
   const handleGetStarted = () => {
-    if (auth.isAuthenticated) {
-      navigate("/dashboard");
-    } else {
-      handleAuthRedirect("/dashboard");
-    }
+    navigate("/dashboard");
   };
 
   useEffect(() => {
@@ -374,24 +355,10 @@ const Home = () => {
     }
   };
 
-  // Update handleCheckout
-  const handleCheckout = async (tier: string) => {
-    if (!auth.isAuthenticated) {
-      handleAuthRedirect("/#pricing"); // Preserve pricing section
-      return;
-    }
-    try {
-      const session = await createCheckoutSession(
-        auth.user?.access_token || "",
-        tier
-      );
-      setCheckoutClientSecret(session.client_secret);
-    } catch (error) {
-      console.error("Failed to create checkout session:", error);
-      toast.error(
-        "Failed to start checkout process - refresh page and try again."
-      );
-    }
+  // Update handleCheckout to disable checkout for simplified version
+  const handleCheckout = async () => {
+    // For simplified version, just show a message
+    toast.error("Checkout functionality has been simplified. This is a demo version.");
   };
 
   const handleFormatSwitch = (format: "HTML" | "Markdown") => {
@@ -408,7 +375,7 @@ const Home = () => {
             height: "fit-content",
           }}
         >
-          <Header auth={auth} />
+          <Header />
         </div>
       </Flex>
 
@@ -465,15 +432,9 @@ const Home = () => {
                   align="center"
                 >
                   <button className="signup-button" onClick={handleGetStarted}>
-                    {isAuthenticated ? (
-                      <Text size="5" weight="bold">
-                        Go to dashboard
-                      </Text>
-                    ) : (
-                      <Text size="5" weight="bold">
-                        Get started for free
-                      </Text>
-                    )}
+                    <Text size="5" weight="bold">
+                      Get started for free
+                    </Text>
                   </button>
                 </Flex>
               </Flex>
@@ -1112,9 +1073,7 @@ const Home = () => {
                   zIndex: 2,
                 }}
               >
-                {(!auth.isAuthenticated ||
-                  currentTier === "Free" ||
-                  isUsageDataLoading) && (
+                {(currentTier === "Free" || isUsageDataLoading) && (
                   <PricingCard
                     title="Free"
                     price="Free"
@@ -1127,10 +1086,9 @@ const Home = () => {
                     buttonText="Get Started"
                     tier="Free"
                     onCheckout={handleCheckout}
-                    stripePromise={stripePromise}
                     clientSecret={checkoutClientSecret || undefined}
                     currentTier={currentTier}
-                    isAuthenticated={auth.isAuthenticated}
+                    isAuthenticated={false}
                   />
                 )}
 
@@ -1146,10 +1104,10 @@ const Home = () => {
                   buttonText="Get Started"
                   tier="Starter"
                   onCheckout={handleCheckout}
-                  stripePromise={stripePromise}
+                  
                   clientSecret={checkoutClientSecret || undefined}
                   currentTier={currentTier}
-                  isAuthenticated={auth.isAuthenticated}
+                  isAuthenticated={false}
                 />
 
                 <PricingCard
@@ -1164,10 +1122,10 @@ const Home = () => {
                   buttonText="Get Started"
                   tier="Dev"
                   onCheckout={handleCheckout}
-                  stripePromise={stripePromise}
+                  
                   clientSecret={checkoutClientSecret || undefined}
                   currentTier={currentTier}
-                  isAuthenticated={auth.isAuthenticated}
+                  isAuthenticated={false}
                 />
 
                 <PricingCard
@@ -1182,10 +1140,10 @@ const Home = () => {
                   buttonText="Get Started"
                   tier="Growth"
                   onCheckout={handleCheckout}
-                  stripePromise={stripePromise}
+                  
                   clientSecret={checkoutClientSecret || undefined}
                   currentTier={currentTier}
-                  isAuthenticated={auth.isAuthenticated}
+                  isAuthenticated={false}
                 />
               </Flex>
 
@@ -1504,7 +1462,7 @@ const Home = () => {
                   ]}
                   buttonText="Github"
                   tier="Free"
-                  isAuthenticated={auth.isAuthenticated}
+                  isAuthenticated={false}
                   currentTier={currentTier}
                   isCallToAction={true}
                   callToActionUrl="https://github.com/lumina-ai-inc/chunkr"
@@ -1526,7 +1484,7 @@ const Home = () => {
                   tier="Commercial"
                   isCallToAction={true}
                   callToActionUrl="https://cal.com/mehulc/30min"
-                  isAuthenticated={auth.isAuthenticated}
+                  isAuthenticated={false}
                   currentTier={currentTier}
                 />
               </Flex>

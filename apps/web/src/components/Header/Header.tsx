@@ -4,19 +4,17 @@ import { Link } from "react-router-dom";
 import "./Header.css";
 import Dashboard from "../../pages/Dashboard/Dashboard";
 import { getRepoStats } from "../../services/githubApi";
-import { AuthContextProps } from "react-oidc-context";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 const isSelfHost = import.meta.env.VITE_IS_SELF_HOST === "true";
 
 interface HeaderProps {
-  auth?: AuthContextProps;
+  // Removed auth prop for simplified version
 }
 
 const DOCS_URL = import.meta.env.VITE_DOCS_URL;
 
-export default function Header({ auth }: HeaderProps) {
+export default function Header({}: HeaderProps) {
   const [showAccount, setShowAccount] = useState(false);
-  const isAuthenticated = auth?.isAuthenticated;
   const [repoStats, setRepoStats] = useState({ stars: 0, forks: 0 });
 
   useEffect(() => {
@@ -161,51 +159,24 @@ export default function Header({ auth }: HeaderProps) {
             </a>
           </Flex>
 
-          {isAuthenticated ? (
-            <Link
-              to="/dashboard"
-              style={{ textDecoration: "none" }}
-              className="nav-item"
-            >
-              <Flex
-                direction="row"
-                gap="2"
-                py="12px"
-                px="16px"
-                align="center"
-                onClick={() => setShowAccount(!showAccount)}
-              >
-                <Text size="2" weight="medium" style={{ cursor: "pointer" }}>
-                  Dashboard
-                </Text>
-              </Flex>
-            </Link>
-          ) : (
+          <Link
+            to="/dashboard"
+            style={{ textDecoration: "none" }}
+            className="nav-item"
+          >
             <Flex
               direction="row"
               gap="2"
               py="12px"
               px="16px"
               align="center"
-              onClick={() => {
-                auth?.signinRedirect({
-                  state: { returnTo: "/dashboard" },
-                });
-              }}
-              style={{ paddingRight: "0px" }}
+              onClick={() => setShowAccount(!showAccount)}
             >
-              <Text
-                size="2"
-                weight="medium"
-                style={{
-                  cursor: "pointer",
-                  color: "white",
-                }}
-              >
-                Login
+              <Text size="2" weight="medium" style={{ cursor: "pointer" }}>
+                Dashboard
               </Text>
             </Flex>
-          )}
+          </Link>
         </Flex>
 
         <Flex
@@ -264,24 +235,11 @@ export default function Header({ auth }: HeaderProps) {
                 </DropdownMenu.Item>
               )}
 
-              {isAuthenticated ? (
-                <DropdownMenu.Item className="dropdown-item">
-                  <Link to="/dashboard" className="dropdown-link">
-                    <Text size="2">Dashboard</Text>
-                  </Link>
-                </DropdownMenu.Item>
-              ) : (
-                <DropdownMenu.Item
-                  className="dropdown-item"
-                  onSelect={() => {
-                    auth?.signinRedirect({
-                      state: { returnTo: "/dashboard" },
-                    });
-                  }}
-                >
-                  <Text size="2">Login</Text>
-                </DropdownMenu.Item>
-              )}
+              <DropdownMenu.Item className="dropdown-item">
+                <Link to="/dashboard" className="dropdown-link">
+                  <Text size="2">Dashboard</Text>
+                </Link>
+              </DropdownMenu.Item>
             </DropdownMenu.Content>
           </DropdownMenu.Root>
         </Flex>

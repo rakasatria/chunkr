@@ -23,9 +23,6 @@ importers:
       '@emotion/styled':
         specifier: ^11.13.0
         version: 11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1)
-      '@keycloakify/login-ui':
-        specifier: ~250004.1.0
-        version: 250004.1.0(tsafe@1.8.5)
       '@mui/icons-material':
         specifier: ^6.3.0
         version: 6.4.1(@mui/material@6.4.1(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.18)(react@18.3.1)
@@ -131,9 +128,6 @@ importers:
       katex:
         specifier: ^0.16.19
         version: 0.16.21
-      keycloak-js:
-        specifier: ^25.0.4
-        version: 25.0.6
       lenis:
         specifier: ^1.1.20
         version: 1.1.20(react@18.3.1)
@@ -152,9 +146,6 @@ importers:
       npm:
         specifier: ^10.8.2
         version: 10.9.2
-      oidc-client-ts:
-        specifier: ^3.0.1
-        version: 3.1.0
       pdfjs-dist:
         specifier: ^2.6.347
         version: 2.16.105
@@ -185,9 +176,6 @@ importers:
       react-markdown:
         specifier: ^9.0.1
         version: 9.0.3(@types/react@18.3.18)(react@18.3.1)
-      react-oidc-context:
-        specifier: ^3.1.0
-        version: 3.2.0(oidc-client-ts@3.1.0)(react@18.3.1)
       react-pdf:
         specifier: ^9.1.0
         version: 9.2.1(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -236,9 +224,6 @@ importers:
       tsafe:
         specifier: ^1.8.5
         version: 1.8.5
-      useSetClassName:
-        specifier: link:@keycloakify/login-ui/tools/useSetClassName
-        version: link:@keycloakify/login-ui/tools/useSetClassName
     devDependencies:
       '@eslint/js':
         specifier: ^9.9.0
@@ -731,11 +716,6 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
-
-  '@keycloakify/login-ui@250004.1.0':
-    resolution: {integrity: sha512-/BcIrfousFP/yQYQTlcHLH7+vp/8NSr8zR3htyoDtnkRlZEOg1H7FnDXPJeomAxB6HNDU1bwyCCCA3+Rcj8htA==}
-    peerDependencies:
-      tsafe: ^1.8.5
 
   '@mui/core-downloads-tracker@6.4.1':
     resolution: {integrity: sha512-SfDLWMV5b5oXgDf3NTa2hCTPC1d2defhDH2WgFKmAiejC4mSfXYbyi+AFCLzpizauXhgBm8OaZy9BHKnrSpahQ==}
@@ -2979,9 +2959,6 @@ packages:
     resolution: {integrity: sha512-/imKNG4EbWNrVjoNC/1H5/9GFy+tqjGBHCaSsN+P2RnPqjsLmv6UD3Ej+Kj8nBWaRAwyk7kK5ZUc+OEatnTR3A==}
     hasBin: true
 
-  js-sha256@0.11.0:
-    resolution: {integrity: sha512-6xNlKayMZvds9h1Y1VWc0fQHQ82BxTXizWPEtEeGvmOUYpBRy4gbWroHLpzowe6xiQhHpelCQiE7HEdznyBL9Q==}
-
   js-sha3@0.8.0:
     resolution: {integrity: sha512-gF1cRrHhIzNfToc802P800N8PpXS+evLLXfsVpowqmAFR9uwbi89WvXg2QspOmXL8QL86J4T1EpFu+yUkwJY3Q==}
 
@@ -3020,16 +2997,9 @@ packages:
     engines: {node: '>=6'}
     hasBin: true
 
-  jwt-decode@4.0.0:
-    resolution: {integrity: sha512-+KJGIyHgkGuIq3IEBNftfhW/LfWhXUIY6OmyVWjliu5KH1y0fw7VQ8YndE2O4qZdMSd9SqbnC8GOcZEy0Om7sA==}
-    engines: {node: '>=18'}
-
   katex@0.16.21:
     resolution: {integrity: sha512-XvqR7FgOHtWupfMiigNzmh+MgUVmDGU2kXZm899ZkPfcuoPuFxyHmXsgATDpFZDAXCI8tvinaVcDo8PIIJSo4A==}
     hasBin: true
-
-  keycloak-js@25.0.6:
-    resolution: {integrity: sha512-Km+dc+XfNvY6a4az5jcxTK0zPk52ns9mAxLrHj7lF3V+riVYvQujfHmhayltJDjEpSOJ4C8a57LFNNKnNnRP2g==}
 
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
@@ -3461,10 +3431,6 @@ packages:
   oblivious-set@1.0.0:
     resolution: {integrity: sha512-z+pI07qxo4c2CulUHCDf9lcqDlMSo72N/4rLUpRXf6fu+q8vjt8y0xS+Tlf8NTJDdTXHbdeO1n3MlbctwEoXZw==}
 
-  oidc-client-ts@3.1.0:
-    resolution: {integrity: sha512-IDopEXjiwjkmJLYZo6BTlvwOtnlSniWZkKZoXforC/oLZHC9wkIxd25Kwtmo5yKFMMVcsp3JY6bhcNJqdYk8+g==}
-    engines: {node: '>=18'}
-
   once@1.4.0:
     resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}
 
@@ -3741,13 +3707,6 @@ packages:
     peerDependencies:
       '@types/react': '>=18'
       react: '>=18'
-
-  react-oidc-context@3.2.0:
-    resolution: {integrity: sha512-ZLaCRLWV84Cn9pFdsatmblqxLMv0np69GWVXq9RWGqAjppdOGXNIbIxWMByIio0oSCVUwdeqwYRnJme0tjqd8A==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      oidc-client-ts: ^3.1.0
-      react: '>=16.8.0'
 
   react-pdf@9.2.1:
     resolution: {integrity: sha512-AJt0lAIkItWEZRA5d/mO+Om4nPCuTiQ0saA+qItO967DTjmGjnhmF+Bi2tL286mOTfBlF5CyLzJ35KTMaDoH+A==}
@@ -4830,10 +4789,6 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
-
-  '@keycloakify/login-ui@250004.1.0(tsafe@1.8.5)':
-    dependencies:
-      tsafe: 1.8.5
 
   '@mui/core-downloads-tracker@6.4.1': {}
 
@@ -7302,8 +7257,6 @@ snapshots:
 
   jiti@1.21.7: {}
 
-  js-sha256@0.11.0: {}
-
   js-sha3@0.8.0: {}
 
   js-tokens@4.0.0: {}
@@ -7330,16 +7283,9 @@ snapshots:
 
   json5@2.2.3: {}
 
-  jwt-decode@4.0.0: {}
-
   katex@0.16.21:
     dependencies:
       commander: 8.3.0
-
-  keycloak-js@25.0.6:
-    dependencies:
-      js-sha256: 0.11.0
-      jwt-decode: 4.0.0
 
   keyv@4.5.4:
     dependencies:
@@ -7888,10 +7834,6 @@ snapshots:
 
   oblivious-set@1.0.0: {}
 
-  oidc-client-ts@3.1.0:
-    dependencies:
-      jwt-decode: 4.0.0
-
   once@1.4.0:
     dependencies:
       wrappy: 1.0.2
@@ -8234,11 +8176,6 @@ snapshots:
       vfile: 6.0.3
     transitivePeerDependencies:
       - supports-color
-
-  react-oidc-context@3.2.0(oidc-client-ts@3.1.0)(react@18.3.1):
-    dependencies:
-      oidc-client-ts: 3.1.0
-      react: 18.3.1
 
   react-pdf@9.2.1(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
