@@ -2,8 +2,6 @@ import { Flex, Text } from "@radix-ui/themes";
 import "./Usage.css";
 import useMonthlyUsage from "../../hooks/useMonthlyUsage";
 import BetterButton from "../BetterButton/BetterButton";
-import { useAuth } from "react-oidc-context";
-import { getBillingPortalSession } from "../../services/stripeService";
 import { useState, useMemo } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {
@@ -20,7 +18,6 @@ import { getTasks } from "../../services/taskApi";
 import { useQuery } from "react-query";
 import { Status } from "../../models/taskResponse.model";
 import Dropdown from "../Dropdown/Dropdown";
-import toast from "react-hot-toast";
 
 interface UsageProps {
   customerId?: string;
@@ -28,9 +25,8 @@ interface UsageProps {
 
 type TimeRange = "today" | "week" | "14days" | "month";
 
-export default function UsagePage({ customerId }: UsageProps) {
-  const { data: monthlyUsage, isLoading } = useMonthlyUsage();
-  const auth = useAuth();
+export default function UsagePage({ }: UsageProps) {
+  const { isLoading } = useMonthlyUsage();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [timeRange, setTimeRange] = useState<TimeRange>(
@@ -77,18 +73,10 @@ export default function UsagePage({ customerId }: UsageProps) {
 
     try {
       setIsLoadingPortal(true);
-      const { url } = await getBillingPortalSession(
-        auth.user?.access_token || "",
-        customerId || ""
-      );
-
-      // Redirect to Stripe Customer Portal
-      window.location.href = url;
+      // Simplified version - just show a message
+      alert("Billing portal functionality has been simplified. This is a demo version.");
     } catch (error) {
-      console.error("Error redirecting to billing portal:", error);
-      toast.error(
-        "Failed to open billing portal - refresh page and try again."
-      );
+      console.error("Error:", error);
     } finally {
       setIsLoadingPortal(false);
     }
@@ -122,22 +110,20 @@ export default function UsagePage({ customerId }: UsageProps) {
     return null;
   }
 
-  const usage = monthlyUsage?.[0]?.usage || 0;
-  const limit = monthlyUsage?.[0]?.usage_limit || 0;
+  const usage = 0; // Default for simplified version
+  const limit = 1000; // Default limit for simplified version
   const percentage = limit > 0 ? Math.min((usage / limit) * 100, 100) : 0;
-  const tier = monthlyUsage?.[0]?.tier || "Free";
+  const tier = "Free"; // Default tier for simplified version
   const overage = Math.max(
     0,
-    (monthlyUsage?.[0]?.usage || 0) - (monthlyUsage?.[0]?.usage_limit || 0)
+    0 // No overage in simplified version
   );
 
-  const endDateFormatted = monthlyUsage?.[0]?.billing_cycle_end
-    ? new Date(monthlyUsage[0].billing_cycle_end).toLocaleDateString("en-US", {
+  const endDateFormatted = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString("en-US", {
         month: "long",
         day: "numeric",
         year: "numeric",
-      })
-    : "N/A";
+      });
 
   const getChartData = () => {
     if (!tasks) return [];
@@ -569,7 +555,7 @@ export default function UsagePage({ customerId }: UsageProps) {
           </Flex>
         </Flex>
       </Flex>
-      {tier !== "SelfHosted" && (
+      {false && ( // Always false for simplified version
         <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
           <Flex direction="row" gap="4" mt="56px" align="center">
             <Text
@@ -765,8 +751,8 @@ export default function UsagePage({ customerId }: UsageProps) {
                   weight="bold"
                   style={{ color: "rgba(255,255,255,0.9)" }}
                 >
-                  {monthlyUsage?.[0]?.overage_cost
-                    ? `$${Number(monthlyUsage[0].overage_cost).toLocaleString(
+                  {0
+                    ? `$${Number(0).toLocaleString(
                         "en-US",
                         {
                           minimumFractionDigits: 2,
@@ -889,13 +875,13 @@ export default function UsagePage({ customerId }: UsageProps) {
                   {tier !== "Free" && (
                     <div
                       className={`payment-status-badge ${
-                        monthlyUsage?.[0]?.last_paid_status === false
+                        false === false
                           ? "status-failed"
                           : "status-success"
                       }`}
                     >
                       <Text size="2">
-                        {monthlyUsage?.[0]?.last_paid_status === false
+                        {false === false
                           ? "Failed"
                           : "Paid"}
                       </Text>
@@ -907,7 +893,7 @@ export default function UsagePage({ customerId }: UsageProps) {
                   <Text size="2" style={{ color: "rgba(255,255,255,0.6)" }}>
                     {tier === "Free"
                       ? "Upgrade to a paid plan to unlock higher usage limits."
-                      : monthlyUsage?.[0]?.last_paid_status === false
+                      : false === false
                       ? "Your last payment was unsuccessful. Please update your payment method."
                       : `Your payment method is up to date. Next bill due ${endDateFormatted}.`}
                   </Text>

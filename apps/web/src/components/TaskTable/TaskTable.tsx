@@ -11,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 import { TaskResponse } from "../../models/taskResponse.model";
 import { useTasksQuery } from "../../hooks/useTaskQuery";
 import useUser from "../../hooks/useUser";
-import { useAuth } from "react-oidc-context";
 import "./TaskTable.css";
 import { Flex, Text } from "@radix-ui/themes";
 import { deleteTasks, cancelTasks, updateTask } from "../../services/crudApi";
@@ -71,8 +70,7 @@ const TaskTable = () => {
   }, [pagination, navigate]);
 
   const { data: user } = useUser();
-  const auth = useAuth();
-  const totalTasks = user?.task_count || 0;
+  const totalTasks = 0; // Simplified version doesn't track task count
 
   const {
     data: tasks,
@@ -583,7 +581,6 @@ const TaskTable = () => {
           </Text>
           <Flex direction="column" gap="4" align="center">
             <UploadDialog
-              auth={auth}
               onUploadComplete={() => {
                 refetch();
               }}

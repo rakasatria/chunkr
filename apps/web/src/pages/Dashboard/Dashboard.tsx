@@ -2,7 +2,6 @@ import { Flex, Text } from "@radix-ui/themes";
 import "./Dashboard.css";
 import BetterButton from "../../components/BetterButton/BetterButton";
 import TaskTable from "../../components/TaskTable/TaskTable";
-import { useAuth } from "react-oidc-context";
 import useUser from "../../hooks/useUser";
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { useTaskQuery } from "../../hooks/useTaskQuery";
@@ -14,7 +13,6 @@ import UploadDialog from "../../components/Upload/UploadDialog";
 import { useTasksQuery } from "../../hooks/useTaskQuery";
 import ApiKeyDialog from "../../components/ApiDialog/ApiKeyDialog";
 import { toast } from "react-hot-toast";
-import { getBillingPortalSession } from "../../services/stripeService";
 
 // Lazy load components
 const Viewer = lazy(() => import("../../components/Viewer/Viewer"));
@@ -22,7 +20,6 @@ const Viewer = lazy(() => import("../../components/Viewer/Viewer"));
 const DOCS_URL = import.meta.env.VITE_DOCS_URL;
 
 export default function Dashboard() {
-  const auth = useAuth();
   const user = useUser();
   const [selectedNav, setSelectedNav] = useState("Tasks");
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
@@ -244,16 +241,13 @@ export default function Dashboard() {
     window.open(DOCS_URL, "_blank");
   }, []);
 
-  const userDisplayName =
-    user?.data?.first_name && user?.data?.last_name
-      ? `${user.data.first_name} ${user.data.last_name}`
-      : user?.data?.email || "User";
+  const userDisplayName = "Demo User"; // Default for simplified version
 
   // Format the tier display name
-  const rawTier = user?.data?.tier || "Free";
-  const displayTier = rawTier === "SelfHosted" ? "Self Hosted" : rawTier;
+  const rawTier = "Free"; // Default tier for simplified version
+  const displayTier = rawTier;
 
-  const showProfilePopup = user?.data && isProfileMenuOpen;
+  const showProfilePopup = isProfileMenuOpen; // Simplified condition
 
   const content = useMemo(() => {
     const view = searchParams.get("view");
@@ -263,7 +257,7 @@ export default function Dashboard() {
         return {
           title: "Usage",
           component: (
-            <Usage key="usage-view" customerId={user.data?.customer_id || ""} />
+            <Usage key="usage-view" customerId={""} />
           ),
         };
       case "tasks":
@@ -307,23 +301,12 @@ export default function Dashboard() {
   };
 
   const handleBillingNavigation = async () => {
-    if (user?.data?.tier === "Free") {
-      navigate("/");
-      setTimeout(() => {
-        window.location.hash = "pricing";
-      }, 100);
-      return;
-    }
-
-    try {
-      const { url } = await getBillingPortalSession(
-        auth.user?.access_token || "",
-        user?.data?.customer_id || ""
-      );
-      window.location.href = url;
-    } catch (error) {
-      console.error("Error redirecting to billing portal:", error);
-    }
+    // For simplified version, just navigate to pricing
+    navigate("/");
+    setTimeout(() => {
+      window.location.hash = "pricing";
+    }, 100);
+    return;
   };
 
   return (
@@ -497,7 +480,7 @@ export default function Dashboard() {
                         />
                       </svg>
                       <Text size="2" weight="medium" style={{ color: "#FFF" }}>
-                        {user?.data?.tier === "Free"
+                        {false && "Free" === "Free"
                           ? "Upgrade Plan"
                           : "Manage Billing"}
                       </Text>
@@ -623,7 +606,7 @@ export default function Dashboard() {
                     </Flex>
                     <Flex
                       className="profile-menu-item"
-                      onClick={() => auth.signoutRedirect()}
+                      onClick={() => alert("Logout functionality simplified for demo")}
                     >
                       <svg
                         width="16"
@@ -741,18 +724,28 @@ export default function Dashboard() {
           </Flex>
           <Flex gap="24px">
             <UploadDialog
-              auth={auth}
               onUploadComplete={() => {
                 refetchTasks();
               }}
             />
-            {user.data && (
-              <ApiKeyDialog
-                user={user.data}
+            <ApiKeyDialog
+                user={{
+                  user_id: "demo-user",
+                  customer_id: null,
+                  email: "demo@example.com",
+                  first_name: "Demo",
+                  last_name: "User",
+                  task_count: 0,
+                  api_keys: ["demo-api-key"],
+                  tier: "Free",
+                  created_at: new Date().toISOString(),
+                  updated_at: new Date().toISOString(),
+                  usage: [],
+                  last_paid_status: null
+                }}
                 showApiKey={showApiKey}
                 setShowApiKey={setShowApiKey}
               />
-            )}
             <BetterButton onClick={handleDocsNav}>
               <svg
                 width="18"
@@ -822,7 +815,7 @@ export default function Dashboard() {
             </BetterButton>
           </Flex>
         </Flex>
-        <Flex className="main-body">{auth && user && content.component}</Flex>
+        <Flex className="main-body">{content.component}</Flex>
       </Flex>
     </Flex>
   );

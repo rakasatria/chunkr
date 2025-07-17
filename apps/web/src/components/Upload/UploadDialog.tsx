@@ -1,23 +1,20 @@
 import { Dialog } from "@radix-ui/themes";
 import { Text } from "@radix-ui/themes";
 import BetterButton from "../BetterButton/BetterButton";
-import { AuthContextProps } from "react-oidc-context";
 import "./UploadDialog.css";
 import UploadMain from "./UploadMain";
 import { useState } from "react";
 
 interface UploadDialogProps {
-  auth: AuthContextProps;
+  // auth prop removed for simplified version
   onUploadComplete?: () => void;
 }
 
 export default function UploadDialog({
-  auth,
   onUploadComplete,
 }: UploadDialogProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
-  const isAuthenticated = auth.isAuthenticated;
 
   const handleOpenChange = (open: boolean) => {
     if (!isUploading) {
@@ -94,7 +91,7 @@ export default function UploadDialog({
       </Dialog.Trigger>
       <Dialog.Content className="dialog-overlay">
         <UploadMain
-          isAuthenticated={isAuthenticated}
+          isAuthenticated={true}
           onUploadSuccess={handleUploadComplete}
           onUploadStart={handleUploadStart}
         />

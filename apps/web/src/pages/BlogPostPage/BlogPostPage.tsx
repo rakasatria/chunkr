@@ -32,7 +32,7 @@ import {
 } from "../../services/contentful";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import { useAuth } from "react-oidc-context";
+
 import "./BlogPostPage.css";
 import Prism from "prismjs";
 import BetterButton from "../../components/BetterButton/BetterButton";
@@ -95,7 +95,7 @@ const getRichTextHeadings = (
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
-  const auth = useAuth();
+  
   const [post, setPost] = useState<BlogPostEntry | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -491,7 +491,7 @@ export default function BlogPostPage() {
           <div
             style={{ maxWidth: "1386px", width: "100%", height: "fit-content" }}
           >
-            <Header auth={auth} />
+            <Header />
           </div>
         </Flex>
 
@@ -675,9 +675,8 @@ export default function BlogPostPage() {
                 <Flex gap="3">
                   <BetterButton
                     onClick={() => {
-                      auth?.signinRedirect({
-                        state: { returnTo: "/dashboard" },
-                      });
+                      // Simplified - just navigate to dashboard
+                      window.location.href = "/dashboard";
                     }}
                   >
                     <svg

@@ -35,12 +35,12 @@ const PricingCard = ({
   highlighted = false,
   isPopular = false,
   tier,
-  onCheckout,
+  
   stripePromise,
   clientSecret,
   currentTier,
   isAuthenticated = false,
-  customerId,
+  
   hideButton = false,
   isCallToAction = false,
   callToActionUrl,
@@ -142,7 +142,7 @@ const PricingCard = ({
             isCallToAction ? "cta-button" : ""
           }`}
           onClick={handleClick}
-          disabled={isLoading}
+          disabled={false}
         >
           <Text weight="medium" className="pricing-button-text">
             {getButtonText()}

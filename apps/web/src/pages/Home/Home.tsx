@@ -105,7 +105,7 @@ const Home = () => {
     "HTML"
   );
 
-  const { data: usageData, isLoading: isUsageDataLoading } = useMonthlyUsage();
+  const { isLoading: isUsageDataLoading } = useMonthlyUsage();
   const currentTier = "Free"; // Default to free for simplified version
 
   const pricingRef = useRef<HTMLDivElement>(null);

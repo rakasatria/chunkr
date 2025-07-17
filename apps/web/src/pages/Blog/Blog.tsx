@@ -1,7 +1,6 @@
 import { Flex, Text, Heading, Box } from "@radix-ui/themes";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import { useAuth } from "react-oidc-context";
 import "./Blog.css";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import { useRef, useEffect, useState } from "react";
@@ -15,7 +14,6 @@ import {
 import Loader from "../Loader/Loader";
 
 export default function Blog() {
-  const auth = useAuth();
   const blogIconLottieRef = useRef<LottieRefCurrentProps>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [posts, setPosts] = useState<BlogPostEntry[]>([]);
@@ -176,7 +174,7 @@ export default function Blog() {
             height: "fit-content",
           }}
         >
-          <Header auth={auth} />
+          <Header />
         </div>
       </Flex>
 
