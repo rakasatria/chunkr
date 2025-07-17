@@ -80,7 +80,7 @@ export default function Footer() {
             </svg>
           </a>
           <a
-            href="https://github.com/lumina-ai-inc/chunkr"
+            href="https://github.com/rakasatria/chunkr"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -109,7 +109,7 @@ export default function Footer() {
         </Flex>
 
         <Flex direction="row" align="center" className="footer-logo">
-          <img src={footerText} alt="chunkr" />
+          <img src={footerText} alt="tahoo" />
         </Flex>
       </Flex>
     </Flex>
